@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculate Age</title>
+</head>
+<body>
+    <h1>Age Calculator</h1>
+
+    <form id="ageForm">
+        <label for="birthdate">Enter your birthdate:</label>
+        <input type="date" id="birthdate" required>
+        <button type="submit">Calculate Age</button>
+    </form>
+
+    <h2>Your Age: <span id="ageResult">-</span> years</h2>
+
+    <script>
+        // Function to calculate age
+        function calculateAge(birthdate) {
+            // Convert the input birthdate to a Date object
+            const birthDate = new Date(birthdate);
+            const currentDate = new Date();
+
+            // Calculate the difference in years
+            let age = currentDate.getFullYear() - birthDate.getFullYear();
+            const monthDiff = currentDate.getMonth() - birthDate.getMonth();
+
+            // Adjust age if the birthdate hasn't occurred yet this year
+            if (monthDiff < 0 || (monthDiff === 0 && currentDate.getDate() < birthDate.getDate())) {
+                age--;
+            }
+
+            return age;
+        }
+
+        // Event listener for form submission
+        document.getElementById('ageForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the form from submitting normally
+
+            // Get the birthdate value from the input
+            const birthdate = document.getElementById('birthdate').value;
+
+            // Ensure a valid birthdate is entered
+            if (birthdate) {
+                const age = calculateAge(birthdate);
+                document.getElementById('ageResult').textContent = age;
+            } else {
+                alert('Please enter a valid birthdate.');
+            }
+        });
+    </script>
+</body>
+</html>

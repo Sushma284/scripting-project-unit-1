@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compare Two Numbers</title>
+    
+</head>
+<body>
+
+    <h1>Compare Two Numbers</h1>
+
+    <!-- Input fields for two integers -->
+    <label for="num1">Enter first integer: </label>
+    <input type="number" id="num1" placeholder="First integer"><br>
+
+    <label for="num2">Enter second integer: </label>
+    <input type="number" id="num2" placeholder="Second integer"><br>
+
+    <!-- Button to trigger comparison -->
+    <button onclick="compareNumbers()">Compare</button>
+
+    <!-- Display result -->
+    <div id="result" class="result"></div>
+
+    <script>
+        function compareNumbers() {
+            // Get input values
+            const num1 = parseInt(document.getElementById('num1').value);
+            const num2 = parseInt(document.getElementById('num2').value);
+            
+            // Validate input: check if both are valid integers
+            if (isNaN(num1) || isNaN(num2)) {
+                document.getElementById('result').innerHTML = "Please enter valid integers in both fields.";
+                return;
+            }
+
+            // Compare the two numbers
+            let larger, smaller;
+
+            if (num1 > num2) {
+                larger = num1;
+                smaller = num2;
+            } else if (num1 < num2) {
+                larger = num2;
+                smaller = num1;
+            } else {
+                // If both numbers are equal
+                document.getElementById('result').innerHTML = `Both numbers are equal: ${num1}`;
+                return;
+            }
+
+            // Display the results
+            document.getElementById('result').innerHTML = `
+                <h3>Comparison Result:</h3>
+                <p>Larger number: ${larger}</p>
+                <p>Smaller number: ${smaller}</p>
+            `;
+        }
+    </script>
+
+</body>
+</html>

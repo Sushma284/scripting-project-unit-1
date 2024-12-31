@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Weekend Dates</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        button {
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .output {
+            margin-top: 10px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Find This Week's Weekend Dates</h1>
+    <button onclick="displayWeekendDates()">Get Weekend Dates</button>
+    <div class="output" id="output"></div>
+
+    <script>
+        function getWeekendDates() {
+            const today = new Date();
+            const dayOfWeek = today.getDay();
+            const daysUntilSaturday = 7 - dayOfWeek;
+            
+
+            const saturday = new Date(today);
+            saturday.setDate(today.getDate() + daysUntilSaturday);
+
+            
+
+            return {
+                saturday: saturday.toDateString(),
+                
+            };
+        }
+
+        function displayWeekendDates() {
+            const weekendDates = getWeekendDates();
+            document.getElementById('output').innerHTML = `
+                <p><strong>Saturday:</strong> ${weekendDates.saturday}</p>
+                
+            `;
+        }
+    </script>
+</body>
+</html>

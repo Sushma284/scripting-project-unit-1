@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Most Frequent Words</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        input, button {
+            margin: 5px 0;
+            padding: 10px;
+            font-size: 16px;
+        }
+        .output {
+            margin-top: 10px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Find the 10 Most Frequent Words</h1>
+    <textarea id="textInput" rows="5" placeholder="Enter your text here..."></textarea>
+    <br>
+    <button onclick="tenMostFrequentWords()">Get Top 10 Frequent Words</button>
+    <div class="output" id="output"></div>
+
+    <script>
+        function tenMostFrequentWords() {
+            const inputText = document.getElementById('textInput').value;
+            
+            if (!inputText) {
+                alert("Please enter some text.");
+                return;
+            }
+
+            const words = inputText.toLowerCase().match(/\b\w+\b/g);
+            if (!words) {
+                alert("No valid words found.");
+                return;
+            }
+
+            const wordCount = {};
+            for (let word of words) {
+                wordCount[word] = (wordCount[word] || 0) + 1;
+            }
+
+            const wordPairs = Object.entries(wordCount);
+            wordPairs.sort((a, b) => b[1] - a[1]);
+
+            const topTenWords = wordPairs.slice(0, 10);
+
+            const outputDiv = document.getElementById('output');
+            outputDiv.innerHTML = 'Top 10 Most Frequent Words:<br>' + topTenWords.map(word => `${word[0]}: ${word[1]}`).join('<br>');
+        }
+    </script>
+</body>
+</html>

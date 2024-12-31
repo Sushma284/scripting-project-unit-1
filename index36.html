@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        table {
+            width: 60%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+    </style>
+    
+</head>
+<body>
+
+    <h1>Cookie Management</h1>
+
+    <div>
+        <label for="cookieKey">Key:</label>
+        <input type="text" id="cookieKey" placeholder="Enter key">
+        <br>
+        <label for="cookieValue">Value:</label>
+        <input type="text" id="cookieValue" placeholder="Enter value">
+        <br>
+        <button onclick="createCookie()">Set Cookie</button>
+        <button onclick="readCookie()">Read Cookie</button>
+        <button onclick="deleteCookie()">Delete Cookie</button>
+        <button onclick="deleteAllCookies()">Delete All Cookies</button>
+    </div>
+
+    <h2>All Cookies</h2>
+    <table id="cookies-table">
+        <thead>
+            <tr>
+                <th>Key</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody id="cookies-body">
+            <!-- Rows will be dynamically added here -->
+        </tbody>
+    </table>
+
+</body>
+</html>
+<script>
+    // Function to create a cookie
+function createCookie() {
+    const key = document.getElementById('cookieKey').value;
+    const value = document.getElementById('cookieValue').value;
+
+    if (key && value) {
+        document.cookie = `${key}=${value};path=/;expires=Fri, 31 Dec 2024 23:59:59 GMT`;
+        alert(`Cookie set: ${key}=${value}`);
+    } else {
+        alert('Please enter both key and value.');
+    }
+}
+
+// Function to read a specific cookie
+function readCookie() {
+    const key = document.getElementById('cookieKey').value;
+    if (key) {
+        const cookies = document.cookie.split('; ');
+        let found = false;
+
+        cookies.forEach(cookie => {
+            const [cookieKey, cookieValue] = cookie.split('=');
+            if (cookieKey === key) {
+                alert(`Cookie found: ${cookieKey}=${cookieValue}`);
+                found = true;
+            }
+        });
+
+        if (!found) {
+            alert(`No cookie found with key: ${key}`);
+        }
+    } else {
+        alert('Please enter a key to search.');
+    }
+}
+
+// Function to display all cookies in a table
+function displayCookies() {
+    const cookiesTableBody = document.getElementById('cookies-body');
+    cookiesTableBody.innerHTML = '';
+
+    const cookies = document.cookie.split('; ');
+
+    cookies.forEach(cookie => {
+        const [key, value] = cookie.split('=');
+        const row = document.createElement('tr');
+        const keyCell = document.createElement('td');
+        keyCell.textContent = key;
+        row.appendChild(keyCell);
+        const valueCell = document.createElement('td');
+        valueCell.textContent = value;
+        row.appendChild(valueCell);
+        cookiesTableBody.appendChild(row);
+    });
+}
+
+// Function to delete a specific cookie
+function deleteCookie() {
+    const key = document.getElementById('cookieKey').value;
+    if (key) {
+        document.cookie = `${key}=;path=/;expires=Thu, 01 Jan 1970 00:00:00 GMT`;
+        alert(`Cookie with key "${key}" deleted.`);
+        displayCookies(); // Refresh the table
+    } else {
+        alert('Please enter a key to delete.');
+    }
+}
+
+// Function to delete all cookies
+function deleteAllCookies() {
+    const cookies = document.cookie.split('; ');
+    cookies.forEach(cookie => {
+        const [key] = cookie.split('=');
+        document.cookie = `${key}=;path=/;expires=Thu, 01 Jan 1970 00:00:00 GMT`;
+    });
+    alert('All cookies deleted.');
+    displayCookies(); // Refresh the table
+}
+
+// Call this function initially to display all cookies
+displayCookies();
+
+</script>

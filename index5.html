@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Current Date Formats</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h2 {
+            color: #333;
+        }
+        .date-format {
+            margin: 10px 0;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Current Date Formats</h1>
+
+    <h2>Different formats of the current date:</h2>
+
+    <div id="date-mm-dd-yyyy" class="date-format"></div>
+    <div id="date-mm/dd/yyyy" class="date-format"></div>
+    <div id="date-dd-mm-yyyy" class="date-format"></div>
+    <div id="date-dd/mm/yyyy" class="date-format"></div>
+    <div id="date-yyyy-month-day" class="date-format"></div>
+
+    <script>
+        function formatDate() {
+            // Get the current date
+            const today = new Date();
+
+            // Get individual components
+            const day = today.getDate();
+            const month = today.getMonth(); // Months are 0-based (0 = January, 11 = December)
+            const year = today.getFullYear();
+
+            // Format the day and month to always have two digits
+            const dayFormatted = day < 10 ? '0' + day : day;
+            const monthFormatted = (month + 1) < 10 ? '0' + (month + 1) : (month + 1); // Adding 1 since month is 0-indexed
+
+            // Get the full month name (e.g., "January")
+            const monthName = today.toLocaleString('default', { month: 'long' });
+
+            // Get the day of the week (e.g., "Monday")
+            const dayOfWeek = today.toLocaleString('default', { weekday: 'long' });
+
+            // Formatting as mm-dd-yyyy
+            const format1 = `${monthFormatted}-${dayFormatted}-${year}`;
+            // Formatting as mm/dd/yyyy
+            const format2 = `${monthFormatted}/${dayFormatted}/${year}`;
+            // Formatting as dd-mm-yyyy
+            const format3 = `${dayFormatted}-${monthFormatted}-${year}`;
+            // Formatting as dd/mm/yyyy
+            const format4 = `${dayFormatted}/${monthFormatted}/${year}`;
+            // Formatting as yyyy month date day
+            const format5 = `${year} ${monthName} ${day} ${dayOfWeek}`;
+
+            // Return the formatted dates
+            return {
+                format1,
+                format2,
+                format3,
+                format4,
+                format5
+            };
+        }
+
+        // Get the formatted date
+        const dateFormats = formatDate();
+
+        // Display the result in HTML
+        document.getElementById('date-mm-dd-yyyy').innerText = `mm-dd-yyyy: ${dateFormats.format1}`;
+        document.getElementById('date-mm/dd/yyyy').innerText = `mm/dd/yyyy: ${dateFormats.format2}`;
+        document.getElementById('date-dd-mm-yyyy').innerText = `dd-mm-yyyy: ${dateFormats.format3}`;
+        document.getElementById('date-dd/mm/yyyy').innerText = `dd/mm/yyyy: ${dateFormats.format4}`;
+        document.getElementById('date-yyyy-month-day').innerText = `yyyy month date day: ${dateFormats.format5}`;
+    </script>
+
+</body>
+</html>

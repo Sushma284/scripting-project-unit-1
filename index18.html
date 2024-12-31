@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date Difference in Days</title>
+</head>
+<body>
+    <h1>Calculate the Difference Between Two Dates in Days</h1>
+
+    <script>
+        // Function to calculate the difference in days between two dates
+        function getDateDifference() {
+            // Prompt user to enter two dates in the format YYYY-MM-DD
+            let date1 = prompt("Enter the first date (YYYY-MM-DD):");
+            let date2 = prompt("Enter the second date (YYYY-MM-DD):");
+
+            // Convert the input dates to Date objects
+            let d1 = new Date(date1);
+            let d2 = new Date(date2);
+
+            // Check if both dates are valid
+            if (isNaN(d1.getTime()) || isNaN(d2.getTime())) {
+                alert("Invalid date format. Please use the format YYYY-MM-DD.");
+                return;
+            }
+
+            // Calculate the difference in milliseconds
+            let timeDifference = Math.abs(d2 - d1);
+
+            // Convert milliseconds to days
+            let dayDifference = timeDifference / (1000 * 3600 * 24);
+
+            // Display the result in an alert
+            alert("The difference between the two dates is: " + dayDifference + " days.");
+        }
+
+        // Call the function to execute it
+        getDateDifference();
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remove Characters from String</title>
+    
+</head>
+<body>
+    <h1>Remove Characters from a String</h1>
+    <label for="stringInput">Enter a string:</label>
+    <input type="text" id="stringInput" placeholder="Type your string">
+    <label for="indexInput">Starting index:</label>
+    <input type="number" id="indexInput" placeholder="0">
+    <label for="countInput">Number of characters to remove:</label>
+    <input type="number" id="countInput" placeholder="1">
+    <button onclick="removeAndDisplay()">Remove Characters</button>
+    <div class="output" id="output"></div>
+
+    <script>
+        function removeCharacters(str, index, count) {
+            if (index < 0 || count < 0 || index >= str.length) {
+                return "Invalid input: index or count is out of range.";
+            }
+            return str.slice(0, index) + str.slice(index + count);
+        }
+
+        function removeAndDisplay() {
+            const str = document.getElementById('stringInput').value;
+            const index = parseInt(document.getElementById('indexInput').value, 10);
+            const count = parseInt(document.getElementById('countInput').value, 10);
+
+            const result = removeCharacters(str, index, count);
+            document.getElementById('output').textContent = `Result: ${result}`;
+        }
+    </script>
+</body>
+</html>

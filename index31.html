@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Coloring</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .number-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .number {
+            width: 50px;
+            height: 50px;
+            margin: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 18px;
+        }
+        .even {
+            background-color: green;
+            color: white;
+        }
+        .odd {
+            background-color: yellow;
+        }
+        .prime {
+            background-color: red;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Generate Numbers and Mark Evens, Odds, and Primes</h1>
+    <input type="number" id="userInput" placeholder="Enter a number" />
+    <button onclick="generateNumbers()">Generate</button>
+    <div class="number-container" id="number-container"></div>
+
+    
+</body>
+</html>
+<script>
+    // Function to check if a number is prime
+function isPrime(num) {
+    if (num <= 1) return false;
+    if (num <= 3) return true;
+    if (num % 2 === 0 || num % 3 === 0) return false;
+    for (let i = 5; i * i <= num; i += 6) {
+        if (num % i === 0 || num % (i + 2) === 0) return false;
+    }
+    return true;
+}
+
+// Function to generate numbers and apply styles
+function generateNumbers() {
+    const container = document.getElementById('number-container');
+    const inputNumber = parseInt(document.getElementById('userInput').value);
+
+    if (isNaN(inputNumber) || inputNumber < 1) {
+        alert('Please enter a valid number greater than 0.');
+        return;
+    }
+
+    container.innerHTML = ''; // Clear previous results
+
+    for (let i = 1; i <= inputNumber; i++) {
+        const numberDiv = document.createElement('div');
+        numberDiv.className = 'number';
+
+        if (i % 2 === 0) {
+            numberDiv.classList.add('even');
+        } else {
+            numberDiv.classList.add('odd');
+        }
+
+        if (isPrime(i)) {
+            numberDiv.classList.add('prime');
+        }
+
+        numberDiv.textContent = i;
+        container.appendChild(numberDiv);
+    }
+}
+
+
+</script>
+

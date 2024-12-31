@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check Blank String</title>
+
+</head>
+<body>
+    <h1>Check if a String is Blank</h1>
+    <label for="stringInput">Enter a string:</label>
+    <input type="text" id="stringInput" placeholder="Type something...">
+    <button onclick="checkIfBlank()">Check</button>
+    <div class="output" id="output"></div>
+
+    <script>
+        function isBlank(str) {
+            return !str || str.trim() === '';
+        }
+
+        function checkIfBlank() {
+            const input = document.getElementById('stringInput').value;
+            const result = isBlank(input);
+            document.getElementById('output').textContent = result
+                ? "The string is blank."
+                : "The string is not blank.";
+        }
+    </script>
+</body>
+</html>

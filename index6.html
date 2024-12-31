@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Days Until Next Christmas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #2ecc71;
+        }
+        .result {
+            font-size: 24px;
+            color: #2c3e50;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Days Until Next Christmas</h1>
+    <p>Click the button to calculate how many days are left until next Christmas!</p>
+
+    <button onclick="calculateDaysUntilChristmas()">Calculate Days Left</button>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculateDaysUntilChristmas() {
+            // Get the current date
+            const currentDate = new Date();
+            
+            // Get the current year
+            const currentYear = currentDate.getFullYear();
+            
+            // Create a Date object for Christmas of the current year
+            const christmasThisYear = new Date(currentYear, 11, 25); // Month is 0-based (0 = January, 11 = December)
+
+            // If today is after Christmas, set the next Christmas to the following year
+            if (currentDate > christmasThisYear) {
+                christmasThisYear.setFullYear(currentYear + 1);
+            }
+            
+            // Calculate the difference in time (in milliseconds)
+            const timeDifference = christmasThisYear - currentDate;
+
+            // Convert the time difference to days
+            const daysLeft = Math.ceil(timeDifference / (1000 * 60 * 60 * 24)); // Convert milliseconds to days
+
+            // Display the result in the div
+            document.getElementById('result').textContent = `There are ${daysLeft} days left until Christmas!`;
+        }
+    </script>
+</body>
+</html>

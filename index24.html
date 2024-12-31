@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dog Object Example</title>
+    
+</head>
+<body>
+    <h1>Dog Object Example</h1>
+    <button onclick="initializeDog()">Initialize Dog Object</button>
+    <button onclick="addProperties()">Add Properties</button>
+    <button onclick="displayProperties()">Display Properties</button>
+    <button onclick="addNewProperties()">Add New Properties</button>
+    <button onclick="getDogInfo()">Get Dog Info</button>
+    <div class="output" id="output"></div>
+
+    <script>
+        let dog = {}; // Step a: Initialize empty object
+
+        function initializeDog() {
+            dog = {}; // Reset to empty object
+            document.getElementById("output").textContent = `Dog object initialized: ${JSON.stringify(dog, null, 2)}`;
+        }
+
+        function addProperties() {
+            // Step c: Add properties
+            dog.name = "Buddy";
+            dog.legs = 4;
+            dog.color = "Brown";
+            dog.age = 3;
+            dog.bark = function () {
+                return "woof woof";
+            };
+            document.getElementById("output").textContent = `Properties added: ${JSON.stringify(dog, null, 2)}`;
+        }
+
+        function displayProperties() {
+            // Step d: Display individual properties
+            if (!dog.name) {
+                document.getElementById("output").textContent = "Dog object is empty. Please add properties first.";
+                return;
+            }
+            const output = `
+                Name: ${dog.name}
+                Legs: ${dog.legs}
+                Color: ${dog.color}
+                Age: ${dog.age}
+                Bark: ${dog.bark()}
+            `;
+            document.getElementById("output").textContent = output;
+        }
+
+        function addNewProperties() {
+            // Step e: Add new properties
+            if (!dog.name) {
+                document.getElementById("output").textContent = "Dog object is empty. Please add properties first.";
+                return;
+            }
+            dog.breed = "Golden Retriever";
+            dog.getDogInfo = function () {
+                return `Name: ${this.name}, Breed: ${this.breed}, Color: ${this.color}, Age: ${this.age}, Legs: ${this.legs}`;
+            };
+            document.getElementById("output").textContent = `New properties added: ${JSON.stringify(dog, null, 2)}`;
+        }
+
+        function getDogInfo() {
+            // Display dog info using getDogInfo method
+            if (!dog.getDogInfo) {
+                document.getElementById("output").textContent = "Dog object does not have getDogInfo method. Please add new properties first.";
+                return;
+            }
+            document.getElementById("output").textContent = dog.getDogInfo();
+        }
+    </script>
+</body>
+</html>

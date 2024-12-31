@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sort Letters Alphabetically</title>
+    
+</head>
+<body>
+    <h1>Sort Letters in Alphabetical Order</h1>
+    <label for="stringInput">Enter a string:</label>
+    <input type="text" id="stringInput" placeholder="webmaster">
+    <button onclick="sortString()">Sort</button>
+    <div class="output" id="output"></div>
+
+    <script>
+        function sortString() {
+            // Get the input value
+            const input = document.getElementById('stringInput').value;
+
+            // Validate the input
+            if (input.trim() === '') {
+                document.getElementById('output').textContent = 'Please enter a valid string.';
+                return;
+            }
+
+            // Sort the string alphabetically
+            const sortedString = input
+                .toLowerCase() // Convert to lowercase to handle case sensitivity
+                .split('')     // Split into an array of characters
+                .sort()        // Sort the characters
+                .join('');     // Join them back into a string
+
+            // Display the result
+            document.getElementById('output').textContent = `Sorted String: ${sortedString}`;
+        }
+    </script>
+</body>
+</html>

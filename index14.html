@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sort Array Items</title>
+</head>
+<body>
+    <h1>Sorting Array Example</h1>
+    
+    <p>Sample Array: <span id="sampleArray"></span></p>
+    <p>Sorted Array: <span id="sortedArray"></span></p>
+
+    <script>
+        // Define the sample array
+        var arr1 = [3, 8, 7, 6, 5, -4, 3, 2, 1];
+
+        // Display the original array
+        document.getElementById('sampleArray').textContent = arr1.join(', ');
+
+        // Sort the array in ascending order
+        arr1.sort(function(a, b) {
+            return a - b; // Sorts numerically
+        });
+
+        // Display the sorted array
+        document.getElementById('sortedArray').textContent = arr1.join(', ');
+    </script>
+</body>
+</html>

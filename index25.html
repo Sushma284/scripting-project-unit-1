@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Person Account Example</title>
+   
+</head>
+<body>
+    <h1>Person Account Example</h1>
+
+    <label for="firstName">First Name:</label>
+    <input type="text" id="firstName" placeholder="Enter your first name">
+    <br>
+    <label for="lastName">Last Name:</label>
+    <input type="text" id="lastName" placeholder="Enter your last name">
+    <br>
+    <label for="incomeSource">Income Source:</label>
+    <input type="text" id="incomeSource" placeholder="Enter income source">
+    <br>
+    <label for="incomeAmount">Income Amount:</label>
+    <input type="number" id="incomeAmount" placeholder="Enter income amount">
+    <br>
+    <button onclick="addIncome()">Add Income</button>
+    <br>
+    <label for="expenseDescription">Expense Description:</label>
+    <input type="text" id="expenseDescription" placeholder="Enter expense description">
+    <br>
+    <label for="expenseAmount">Expense Amount:</label>
+    <input type="number" id="expenseAmount" placeholder="Enter expense amount">
+    <br>
+    <button onclick="addExpense()">Add Expense</button>
+    <br>
+    <button onclick="displayAccountInfo()">Show Account Info</button>
+
+    <div class="output" id="output"></div>
+
+    <script>
+        let personAccount = {
+            firstName: "",
+            lastName: "",
+            incomes: {},
+            expenses: {},
+            addIncome: function (source, amount) {
+                if (source && amount > 0) {
+                    this.incomes[source] = amount;
+                } else {
+                    console.log("Invalid income source or amount.");
+                }
+            },
+            addExpense: function (description, amount) {
+                if (description && amount > 0) {
+                    this.expenses[description] = amount;
+                } else {
+                    console.log("Invalid expense description or amount.");
+                }
+            },
+            totalIncome: function () {
+                let total = 0;
+                for (let source in this.incomes) {
+                    total += this.incomes[source];
+                }
+                return total;
+            },
+            totalExpense: function () {
+                let total = 0;
+                for (let description in this.expenses) {
+                    total += this.expenses[description];
+                }
+                return total;
+            },
+            accountInfo: function () {
+                return `${this.firstName} ${this.lastName}'s Account`;
+            },
+            accountBalance: function () {
+                return this.totalIncome() - this.totalExpense();
+            }
+        };
+
+        function addIncome() {
+            const source = document.getElementById('incomeSource').value;
+            const amount = parseFloat(document.getElementById('incomeAmount').value);
+            personAccount.addIncome(source, amount);
+            document.getElementById('incomeSource').value = '';
+            document.getElementById('incomeAmount').value = '';
+        }
+
+        function addExpense() {
+            const description = document.getElementById('expenseDescription').value;
+            const amount = parseFloat(document.getElementById('expenseAmount').value);
+            personAccount.addExpense(description, amount);
+            document.getElementById('expenseDescription').value = '';
+            document.getElementById('expenseAmount').value = '';
+        }
+
+        function displayAccountInfo() {
+            personAccount.firstName = document.getElementById('firstName').value;
+            personAccount.lastName = document.getElementById('lastName').value;
+
+            const output = `
+                <p>${personAccount.accountInfo()}</p>
+                <p>Total Income: ${personAccount.totalIncome()}</p>
+                <p>Total Expense: ${personAccount.totalExpense()}</p>
+                <p>Account Balance: ${personAccount.accountBalance()}</p>
+            `;
+            document.getElementById('output').innerHTML = output;
+        }
+    </script>
+</body>
+</html>
